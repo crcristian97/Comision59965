@@ -1,42 +1,41 @@
-import qrcode
-from PIL import Image, ImageDraw, ImageFont
+import subprocess
 
-def create_qr_code(text, output_filename):
-    # Crear un código QR básico
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
-        box_size=10,
-        border=4,
-    )
+def get_wifi_profiles():
+    result = subprocess.run(
+        ['netsh', 'wlan', 'show', 'profiles'],
+        capture_output=True, text=True)
+    
+    profiles = []
 
-    # Añadir datos al código QR
-    qr.add_data(text)
-    qr.make(fit=True)
+    for line in result.stdout.split('\n'):
+        if "Todos los perfiles de usuario" in line or "All User Profile" in line:
+            profile_name = line.split(":")[1].strip()
+            profiles.append(profile_name)
 
-    # Crear imagen QR
-    img = qr.make_image(fill_color="black", back_color="white")
+    return profiles
 
-    # Guardar la imagen
-    img.save(output_filename)
+def get_wifi_password(profile):
+    result = subprocess.run(
+        ['netsh', 'wlan', 'show', 'profile', 
+         profile, 'key=clear'], 
+        capture_output=True, text=True)
+    password = None
 
-def generate_qr_codes_for_guests(guest_list):
-    for index, guest in enumerate(guest_list, start=1):
-        guest_name = guest['name']
-        qr_data = f"Guest Name: {guest_name}\nID: {index}"
-        output_filename = f"qr_codes/qr_{index}_{guest_name}.png"
-        
-        # Crear código QR para cada invitado
-        create_qr_code(qr_data, output_filename)
-        print(f"Código QR generado para {guest_name}: {output_filename}")
+    for line in result.stdout.split('\n'):
+        if "Contenido de la clave" in line or "Key Content" in line:
+            password = line.split(":")[1].strip()
 
-# Lista de invitados
-guest_list = [
-    {"name": "Juan Perez"},
-    {"name": "Maria Lopez"},
-    {"name": "Carlos Gomez"},
-    # Agregar más nombres hasta llegar a 50
-]
+    return password
 
-# Generar códigos QR
-generate_qr_codes_for_guests(guest_list)
+def main():
+    profiles = get_wifi_profiles()
+    if not profiles:
+        print("No se encontraron perfiles de Wi-Fi almacenados.")
+        return
+
+    for profile in profiles:
+        password = get_wifi_password(profile)
+        print(f'Perfil: {profile}\nContraseña: {password}\n')
+
+if __name__ == "__main__":
+    main()
