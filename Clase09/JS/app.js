@@ -53,6 +53,7 @@ const productos = [
 ]
 
 function renderProduct(productos){
+  
   let container = document.getElementById('container');
   let content = '';
   let etiquetasection = document.createElement('section');
@@ -60,10 +61,10 @@ function renderProduct(productos){
   let etiquetadiv = document.createElement('div');
     content += `
       <img alt="" title="" src=${elemento.img}>
-      <h1>${elemento.producto}</h1>
+      <h1 class="container">${elemento.producto}</h1>
       <p>${elemento.description}</p>
       <p>${elemento.precio}</p>
-      <button>Agregar al carrito</button>
+      <button class="btn-danger">Agregar al carrito</button>
     `;
   document.body.appendChild(etiquetadiv);
   });
@@ -75,22 +76,22 @@ function renderProduct(productos){
 renderProduct(productos);
 
 
-let inputName = document.getElementById('nombreUsuario').value;
+// let inputName = document.getElementById('nombreUsuario').value;
 
-function validarUsuario(inputName = ""){
-  if(inputName === "" ){
-    container.innerHTML = "DATO INCORRECTO";
-  }
-}
+// function validarUsuario(inputName = ""){
+//   if(inputName === "" ){
+//     container.innerHTML = "DATO INCORRECTO";
+//   }
+// }
 
-validarUsuario(inputName)
+// validarUsuario(inputName)
 
-//ES5 
-let nameUsuario = "lucas";
-let apellidoUsuario = "Marchena";
-const dataUsuario = "Bienvenido" + nameUsuario + " " + apellidoUsuario;
-//ES6
-let nombreUser = "Cristian";
-let apellidoUsuer = "Cabrera";
-const resultado = `Bienvenido ${nombreUser} ${apellidoUsuer}`
+// //ES5 
+// let nameUsuario = "lucas";
+// let apellidoUsuario = "Marchena";
+// const dataUsuario = "Bienvenido" + nameUsuario + " " + apellidoUsuario;
+// //ES6
+// let nombreUser = "Cristian";
+// let apellidoUsuer = "Cabrera";
+// const resultado = `Bienvenido ${nombreUser} ${apellidoUsuer}`
 
