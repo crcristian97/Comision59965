@@ -1,0 +1,28 @@
+[{
+  "id":1,
+  "producto":"Arroz",
+  "precio":125,
+  "description":"comidita barat",
+  "img":"/"
+},
+{
+  "id":2,
+  "producto":"Fideo",
+  "precio":70,
+  "description":"comidita barat",
+  "img":"/"
+},
+{
+  "id":3,
+  "producto":"Pan",
+  "precio":50,
+  "description":"comidita barat",
+  "img":"/"
+},
+{
+  "id":4,
+  "producto":"Flan",
+  "precio":100,
+  "description":"comidita barat",
+  "img":"/"
+}]

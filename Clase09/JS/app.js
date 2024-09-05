@@ -52,8 +52,9 @@ const productos = [
   {  id: 4,  producto: "Flan" , precio: 100, description: "comidita barat", img: "/"}
 ]
 
+let productoModal = [];
+
 function renderProduct(productos){
-  
   let container = document.getElementById('container');
   let content = '';
   let etiquetasection = document.createElement('section');
@@ -69,8 +70,14 @@ function renderProduct(productos){
   document.body.appendChild(etiquetadiv);
   });
 
+  //aca llaman al localStorage
+  localStorageProducto()
   container.innerHTML = content;
   document.body.appendChild(etiquetasection);
+}
+
+function localStorageProducto(){
+  localStorage.setItem('carritoModal', productoModal);
 }
 
 renderProduct(productos);
